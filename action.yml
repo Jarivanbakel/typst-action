@@ -38,7 +38,8 @@ runs:
         
     - name: Compile Typst documents
       run: |
-        paths=${{ inputs.filenames }}
+        paths=${${{ inputs.filenames }}//$'\n'/ }
+        echo $paths
         
         for file in ${paths[@]}; do
           ./typst-x86_64-${{ steps.vars.outputs.binary_type }}/typst compile $file
