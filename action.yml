@@ -33,6 +33,6 @@ runs:
             tar zxvf "typst-x86_64-${binary_type}${archive_extension}"
         fi
         
-     - name: Compile Typst documents
-       run: ./typst-x86_64-${binary_type}/typst compile ${{ inputs.filename }}
-       shell: bash
+    - name: Compile Typst documents
+      run: ./typst-x86_64-${binary_type}/typst compile ${{ inputs.filename }}
+      shell: bash
