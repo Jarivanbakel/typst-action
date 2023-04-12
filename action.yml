@@ -37,5 +37,5 @@ runs:
         fi
         
     - name: Compile Typst documents
-      run: ./typst-x86_64-${{ steps.vars.outputs.binary_type }}/typst compile ${{ inputs.filename }}
+      run: ./typst-x86_64-${{ steps.vars.outputs.binary_type }}/typst compile ${{ inputs.filenames }}
       shell: bash
