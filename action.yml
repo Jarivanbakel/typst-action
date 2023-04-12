@@ -33,7 +33,8 @@ runs:
             tar zxvf "typst-x86_64-${binary_type}${archive_extension}"
         fi
         
-        INPUTS=$("${{ inputs.filenames }}" | tr -d '\n')
+        FILENAMES=${{ inputs.filenames }}
+        INPUTS="${FILENAMES//$'\n'/ }"
         echo $INPUTS
         for INPUT in $INPUTS
         do
