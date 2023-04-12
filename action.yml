@@ -1,0 +1,38 @@
+name: 'Compile Typst documents'
+description: 'GitHub Action to compile Typst documents'
+inputs:
+  filename:
+    description: 'Define the filename for the compiled typst documents'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Compile Typst documents
+      shell: bash
+      run: |
+        if [ "$RUNNER_OS" == 'Linux' ]; 
+        then
+             binary_type="unknown-linux-gnu"
+             archive_extension=".tar.gz"
+        elif [ "$RUNNER_OS" == 'Windows' ]; 
+        then
+             binary_type="pc-windows-msvc"
+             archive_extension=".zip"
+        else 
+             binary_type="apple-darwin"
+             archive_extension=".tar.gz"
+        fi
+        
+        echo Running on $RUNNER_OS extracting $binary_type$archive_extension
+        curl -OL "https://github.com/typst/typst/releases/download/v0.1.0/typst-x86_64-${binary_type}${archive_extension}"
+
+        if [ "$RUNNER_OS" == 'Windows' ]; 
+        then
+            7z x "typst-x86_64-${binary_type}${archive_extension}"
+        else
+            tar zxvf "typst-x86_64-${binary_type}${archive_extension}"
+        fi
+
+        ./typst-x86_64-${binary_type}/typst compile ${{ inputs.filename }}
+
+        
