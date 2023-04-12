@@ -38,6 +38,7 @@ runs:
 
         for INPUT in ${{ inputs.filenames }}
         do
+          echo Compiling $INPUT
           ./typst-x86_64-${binary_type}/typst compile $INPUT
         done
         
