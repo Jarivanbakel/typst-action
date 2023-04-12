@@ -1,9 +1,12 @@
 name: 'Compile Typst documents'
 description: 'GitHub Action to compile Typst documents'
 inputs:
-  filename:
-    description: 'Define the filename for the compiled typst documents'
+  filenames:
+    description: 'Define the filenames for the compiled typst documents'
     required: true
+    type: array
+    items:
+      type: string
 runs:
   using: "composite"
   steps:
