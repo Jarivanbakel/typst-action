@@ -35,10 +35,7 @@ runs:
         else
             tar zxvf "typst-x86_64-${binary_type}${archive_extension}"
         fi
-
-        for INPUT in ${{ inputs.filenames }}
-        do
-          echo Compiling $INPUT
-          ./typst-x86_64-${binary_type}/typst compile $INPUT
-        done
+        
+        ./typst-x86_64-${binary_type}/typst compile ${{ inputs.filenames }}
+        
         
