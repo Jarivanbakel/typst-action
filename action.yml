@@ -4,6 +4,9 @@ inputs:
   filenames:
     description: 'Define the filenames for the compiled typst documents'
     required: true
+    type: array
+    item:
+      type: string
 runs:
   using: "composite"
   steps:
@@ -33,6 +36,8 @@ runs:
             tar zxvf "typst-x86_64-${binary_type}${archive_extension}"
         fi
 
-        ./typst-x86_64-${binary_type}/typst compile ${{ inputs.filenames }}
-
+        for INPUT in ${{ inputs.filenames }}
+        do
+          ./typst-x86_64-${binary_type}/typst compile $INPUT
+        done
         
