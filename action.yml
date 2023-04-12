@@ -37,5 +37,10 @@ runs:
         fi
         
     - name: Compile Typst documents
-      run: ./typst-x86_64-${{ steps.vars.outputs.binary_type }}/typst compile ${{ inputs.filenames }}
+      run: |
+        paths=${{ steps.vars.outputs.binary_type }}
+        
+        for file in ${paths[@]}; do
+          ./typst-x86_64-${{ steps.vars.outputs.binary_type }}/typst compile $file
+        done
       shell: bash
