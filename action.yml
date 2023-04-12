@@ -25,11 +25,16 @@ runs:
         fi
         
         echo "binary_type=$binary_type" >> $GITHUB_OUTPUT
+        echo "archive_extension=$archive_extension" >> $GITHUB_OUTPUT
+        
         curl -OL "https://github.com/typst/typst/releases/download/v0.1.0/typst-x86_64-${binary_type}${archive_extension}"
     
     - name: Extract the Typst binary
       shell: bash
-      run: | 
+      run: |
+        binary_type=${{ steps.vars.outputs.binary_type }}
+        archive_extension=${{ steps.vars.outputs.archive_extension }}
+        
         echo Running on $RUNNER_OS extracting $binary_type$archive_extension
 
         if [ "$RUNNER_OS" == 'Windows' ]; 
