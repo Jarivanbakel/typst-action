@@ -33,7 +33,9 @@ runs:
             tar zxvf "typst-x86_64-${binary_type}${archive_extension}"
         fi
         
-        for INPUT in $(${{ inputs.filenames }} | tr -d '\n')
+        INPUTS=$(${{ inputs.filenames }} | tr -d '\n')
+        echo $INPUTS
+        for INPUT in $INPUTS
         do
             ./typst-x86_64-${binary_type}/typst compile $INPUT
         done
