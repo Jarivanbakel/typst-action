@@ -7,9 +7,9 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Download and extract Typst binary
-      id: vars
+    - name: Download the Typst binary
       shell: bash
+      id: vars
       run: |
         if [ "$RUNNER_OS" == 'Linux' ]; 
         then
@@ -25,9 +25,12 @@ runs:
         fi
         
         echo "binary_type=$binary_type" >> $GITHUB_OUTPUT
-        
-        echo Running on $RUNNER_OS extracting $binary_type$archive_extension
         curl -OL "https://github.com/typst/typst/releases/download/v0.1.0/typst-x86_64-${binary_type}${archive_extension}"
+    
+    - name: Extract the Typst binary
+      shell: bash
+      run: | 
+        echo Running on $RUNNER_OS extracting $binary_type$archive_extension
 
         if [ "$RUNNER_OS" == 'Windows' ]; 
         then
@@ -37,6 +40,7 @@ runs:
         fi
         
     - name: Compile Typst documents
+      shell: bash
       run: |
         paths="${{ inputs.filenames }}"
         paths=${paths//$'\n'/}
@@ -45,4 +49,3 @@ runs:
         for file in ${paths[@]}; do
           ./typst-x86_64-${{ steps.vars.outputs.binary_type }}/typst compile $file
         done
-      shell: bash
