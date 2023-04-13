@@ -26,7 +26,7 @@ jobs:
         with:
           input_files: |
             test/doc.typ 
-            test/subdir1/doc.typ
+            test/subdir1/doc.typ 
             test/subdir2/doc.typ
 
       - name: Compile basic Typst document 
@@ -35,7 +35,7 @@ jobs:
           working_directory: test
           input_files: |
             doc.typ 
-            subdir1/doc.typ
+            subdir1/doc.typ 
             subdir2/doc.typ
 
       - uses: actions/upload-artifact@v2
