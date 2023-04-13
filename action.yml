@@ -27,15 +27,16 @@ runs:
         echo "binary_type=$binary_type" >> $GITHUB_OUTPUT
         echo "archive_extension=$archive_extension" >> $GITHUB_OUTPUT
         
-    - name: testing github api
+    - name: get download url for corresponding binary
       shell: bash
+      id: download_url
       run: |
-        RESPONSE=$(curl 'https://api.github.com/repos/typst/typst/releases/latest' | jq '[ .assets[] | select( .name | contains("${{ steps.determine_os.outputs.binary_type }}")) | .url]')
-        echo $RESPONSE
+        binary_download_url=$(curl 'https://api.github.com/repos/typst/typst/releases/latest' | jq '[ .assets[] | select( .name | contains("${{ steps.determine_os.outputs.binary_type }}")) | .browser_download_url]')
+        echo "binary_download_url=$binary_download_url" >> $GITHUB_OUTPUT
 
     - name: Download the binary
       shell: bash
-      run: curl -OL "https://github.com/typst/typst/releases/download/v0.1.0/typst-x86_64-${{ steps.determine_os.outputs.binary_type }}${{ steps.determine_os.outputs.archive_extension }}"
+      run: curl -OL "${{ steps.download_url.outputs.binary_download_url }}"
     
     - name: Extract the binary
       shell: bash
