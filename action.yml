@@ -51,5 +51,5 @@ runs:
         echo Paths $paths
         
         for file in ${paths[@]}; do
-          ./typst-x86_64-${{ steps.vars.determine_os.binary_type }}/typst compile $file
+          ./typst-x86_64-${{ steps.determine_os.outputs.binary_type }}/typst compile $file
         done
