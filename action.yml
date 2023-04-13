@@ -89,3 +89,7 @@ runs:
         for file in ${paths[@]}; do
           typst compile $file
         done
+
+branding:
+  icon: file-text
+  color: orange
