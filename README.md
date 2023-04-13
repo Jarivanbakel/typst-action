@@ -27,7 +27,7 @@ jobs:
         uses: actions/checkout@v3
       - uses:  Jarivanbakel/typst-action@v1
         with:
-          input_files: main.typ
+          input_files: file1.typ
       - name: Upload PDF file
         uses: actions/upload-artifact@v3
         with:
