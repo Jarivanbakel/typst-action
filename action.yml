@@ -27,9 +27,17 @@ runs:
         echo "binary_type=$binary_type" >> $GITHUB_OUTPUT
         echo "archive_extension=$archive_extension" >> $GITHUB_OUTPUT
         
+    - name: Cache 
+      id: cache-binary_type
+      uses: actions/cache@v3
+      with:
+        path: binary_type
+        key: ${{steps.determine_os.outputs.binary_type}}
+
     - name: get download url for corresponding binary
       shell: bash
       id: download_url
+      if: steps.cache-binary_type.outputs.cache-hit != 'true'
       run: |
         binary_download_url=$(curl 'https://api.github.com/repos/typst/typst/releases/latest' | jq '.assets[] | select( .name | contains("${{ steps.determine_os.outputs.binary_type }}")) | .browser_download_url')
         echo "$binary_download_url"
@@ -37,10 +45,12 @@ runs:
 
     - name: Download the binary
       shell: bash
+      if: steps.cache-binary_type.outputs.cache-hit != 'true'
       run: curl -OL ${{ steps.download_url.outputs.binary_download_url }}
     
     - name: Extract the binary
       shell: bash
+      if: steps.cache-binary_type.outputs.cache-hit != 'true'
       run: |
         echo Running on $RUNNER_OS extracting $binary_type$archive_extension
 
