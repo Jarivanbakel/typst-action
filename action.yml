@@ -54,6 +54,12 @@ runs:
     - name: Compile Typst documents
       shell: bash
       run: |
+        working_directory=${{ inputs.working_directory }}
+        if [[ ! -d "$working_directory" ]]; then
+          mkdir -p "$working_directory"
+        fi
+        cd "$working_directory"
+        
         paths="${{ inputs.filenames }}"
         paths=${paths//$'\n'/}
         echo Paths $paths
