@@ -7,9 +7,8 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Download the Typst binary
+    - name: Determine OS
       shell: bash
-      id: vars
       run: |
         if [ "$RUNNER_OS" == 'Linux' ]; 
         then
@@ -27,9 +26,12 @@ runs:
         echo "binary_type=$binary_type" >> $GITHUB_OUTPUT
         echo "archive_extension=$archive_extension" >> $GITHUB_OUTPUT
         
-        curl -OL "https://github.com/typst/typst/releases/download/v0.1.0/typst-x86_64-${binary_type}${archive_extension}"
+    - name: Download the binary
+      shell: bash
+      id: vars
+      run: curl -OL "https://github.com/typst/typst/releases/download/v0.1.0/typst-x86_64-${binary_type}${archive_extension}"
     
-    - name: Extract the Typst binary
+    - name: Extract the binary
       shell: bash
       run: |
         binary_type=${{ steps.vars.outputs.binary_type }}
