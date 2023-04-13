@@ -51,6 +51,10 @@ runs:
             tar zxvf "typst-x86_64-${{ steps.determine_os.outputs.binary_type }}${{ steps.determine_os.outputs.archive_extension }}"
         fi
         
+        echo "$PWD"
+        echo "$PWD/typst-x86_64-${{ steps.determine_os.outputs.binary_type }}"
+        echo "$PWD/typst-x86_64-${{ steps.determine_os.outputs.binary_type }}" >> $GITHUB_PATH
+        
     - name: Compile Typst documents
       shell: bash
       run: |
@@ -67,5 +71,5 @@ runs:
         echo Paths $paths
         
         for file in ${paths[@]}; do
-          $RUNNER_WORKSPACE/typst-x86_64-${{ steps.determine_os.outputs.binary_type }}/typst compile $file
+          typst compile $file
         done
