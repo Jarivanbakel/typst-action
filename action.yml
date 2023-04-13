@@ -31,8 +31,8 @@ runs:
       shell: bash
       run: |
         RESPONSE=$(curl https://api.github.com/repos/typst/typst/releases/latest)
-        echo $RESPONSE.url
-        
+        jq .assets.url $RESPONSE
+
     - name: Download the binary
       shell: bash
       run: curl -OL "https://github.com/typst/typst/releases/download/v0.1.0/typst-x86_64-${{ steps.determine_os.outputs.binary_type }}${{ steps.determine_os.outputs.archive_extension }}"
