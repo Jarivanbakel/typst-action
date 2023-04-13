@@ -4,6 +4,9 @@ inputs:
   input_files:
     description: 'Define the input files that need to be compiled to Typst documents'
     required: true
+  working_directory:
+    description: 'The working directory where all the typst files are located'
+    required: false
 runs:
   using: "composite"
   steps:
