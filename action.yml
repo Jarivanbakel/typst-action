@@ -33,6 +33,7 @@ runs:
       run: |
         binary_download_url=$(curl 'https://api.github.com/repos/typst/typst/releases/latest' | jq '[ .assets[] | select( .name | contains("${{ steps.determine_os.outputs.binary_type }}")) | .browser_download_url]')
         echo "binary_download_url=$binary_download_url" >> $GITHUB_OUTPUT
+        echo $binary_download_url
 
     - name: Download the binary
       shell: bash
