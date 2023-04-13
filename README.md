@@ -27,6 +27,7 @@ jobs:
         uses: actions/checkout@v3
       - uses:  Jarivanbakel/typst-action@v1
         with:
+          working_directory: docs/project-plan
           filenames: main.typ
       - name: Upload PDF file
         uses: actions/upload-artifact@v3
