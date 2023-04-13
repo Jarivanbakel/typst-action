@@ -1,8 +1,6 @@
 # typst-action
 GitHub Action to compile Typst documents
 
-It runs inside the GitHub runner using a composite action.
-
 # Inputs
 - `filenames`
 
