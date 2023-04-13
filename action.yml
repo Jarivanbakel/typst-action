@@ -30,7 +30,8 @@ runs:
     - name: testing github api
       shell: bash
       run: |
-      curl 'https://api.github.com/repos/typst/typst/releases/latest' | jq '.assets[0]'
+        RESPONSE=curl 'https://api.github.com/repos/typst/typst/releases/latest' | jq '.assets[0]'
+        echo $RESPONSE
 
     - name: Download the binary
       shell: bash
