@@ -30,7 +30,7 @@ runs:
     - name: testing github api
       shell: bash
       run: |
-        RESPONSE=$(curl 'https://api.github.com/repos/typst/typst/releases/latest' | jq '[ .assets[] | select( .name | contains("${{ steps.determine_os.outputs.binary_type }}") | .url)]')
+        RESPONSE=$(curl 'https://api.github.com/repos/typst/typst/releases/latest' | jq -n '[ .assets[] | select( .name | contains("${{ steps.determine_os.outputs.binary_type }}") | .url)]')
         echo $RESPONSE
 
     - name: Download the binary
