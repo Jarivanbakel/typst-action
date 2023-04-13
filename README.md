@@ -2,13 +2,13 @@
 GitHub Action to compile Typst documents
 
 # Inputs
-- `filenames`
+- `input_files`
 
 The Typst file(s) to be compiled. This input is required. You can also pass multiple files as a multi-line string to compile multiple documents. For example:
 ```
 - uses:  Jarivanbakel/typst-action@v1
   with:
-    filenames: |
+    input_files: |
       file1.typ 
       file2.typ
 ```
@@ -27,7 +27,7 @@ jobs:
         uses: actions/checkout@v3
       - uses:  Jarivanbakel/typst-action@v1
         with:
-          filenames: main.typ
+          input_files: main.typ
       - name: Upload PDF file
         uses: actions/upload-artifact@v3
         with:
