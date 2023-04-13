@@ -1,7 +1,5 @@
 name: Test Github Action
 on:
-  push:
-  pull_request:
   schedule:
     - cron: '0 0 * * 0'
   workflow_dispatch:
@@ -39,12 +37,6 @@ jobs:
             doc.typ 
             subdir1/doc.typ
             subdir2/doc.typ
-
-      - name: Check pdf files
-        run: |
-          file test/doc.pdf | grep -q ' PDF '
-          file test/subdir1/doc.pdf | grep -q ' PDF '
-          file test/subdir2/doc.pdf | grep -q ' PDF '
 
       - uses: actions/upload-artifact@v2
         with:

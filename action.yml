@@ -36,10 +36,8 @@ runs:
       run: |
         if [ -d "typst-x86_64-${{ steps.determine_os.outputs.binary_type }}" ]; then
             echo "exists=true" >> $GITHUB_OUTPUT
-            echo "binary exists!"
         else
             echo "exists=false" >> $GITHUB_OUTPUT
-            echo "binary does not yet exists"
         fi
 
     - name: get download url for corresponding binary
