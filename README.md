@@ -1,7 +1,7 @@
 # typst-action
 [![Test Github Action](https://github.com/Jarivanbakel/typst-action/actions/workflows/test.yml/badge.svg)](https://github.com/Jarivanbakel/typst-action/actions/workflows/test.yml)
 
-GitHub Action to compile Typst documents
+A cross-OS GitHub Action to compile Typst documents
 
 ## Inputs
 - `input_files`
