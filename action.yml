@@ -1,5 +1,5 @@
 name: 'Compile Typst documents'
-description: 'GitHub Action to compile Typst documents'
+description: 'A cross-OS GitHub Action to compile Typst documents'
 inputs:
   input_files:
     description: 'Define the input files that need to be compiled to Typst documents'
