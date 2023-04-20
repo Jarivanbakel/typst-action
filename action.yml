@@ -44,15 +44,17 @@ runs:
       shell: bash
       id: download_url
       if: steps.binary_exists.outputs.exists != 'true'
+      env:  
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        binary_download_url=$(curl 'https://api.github.com/repos/typst/typst/releases/latest' | jq '.assets[]? | select( .name | contains("${{ steps.determine_os.outputs.binary_type }}")) | .browser_download_url')
+        binary_download_url=$(curl -O -L -H "Authorization: Bearer $GITHUB_TOKEN" 'https://api.github.com/repos/typst/typst/releases/latest' | jq '.assets[]? | select( .name | contains("${{ steps.determine_os.outputs.binary_type }}")) | .browser_download_url')
         echo "$binary_download_url"
         echo "binary_download_url=$binary_download_url" >> $GITHUB_OUTPUT
 
     - name: Download the binary
       shell: bash
-      if: steps.binary_exists.outputs.exists != 'true'
-      run: curl -OL ${{ steps.download_url.outputs.binary_download_url }}
+      if: steps.binary_exists.outputs.exists != 'true'      
+      run: curl -O -L ${{ steps.download_url.outputs.binary_download_url }}
     
     - name: Extract the binary
       shell: bash
