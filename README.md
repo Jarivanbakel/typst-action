@@ -8,7 +8,7 @@ A cross-OS GitHub Action to compile Typst documents
 
 The Typst file(s) to be compiled. This input is required. You can also pass multiple files as a multi-line string to compile multiple documents. For example:
 ```yaml
-- uses:  Jarivanbakel/typst-action@v1
+- uses:  Jarivanbakel/typst-action@v2
   with:
     input_files: |
       file1.typ 
@@ -27,7 +27,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - uses:  Jarivanbakel/typst-action@v1
+      - uses:  Jarivanbakel/typst-action@v2
         with:
           input_files: file1.typ
       - name: Upload PDF file
