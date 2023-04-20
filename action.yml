@@ -53,7 +53,7 @@ runs:
           --header 'authorization: Bearer ${{ inputs.token }}')
 
         echo "$response"
-        binary_download_url=$($response | jq '.assets[]? | select( .name | contains("${{ steps.determine_os.outputs.binary_type }}")) | .browser_download_url')
+        binary_download_url=$("$response" | jq '.assets[]? | select( .name | contains("${{ steps.determine_os.outputs.binary_type }}")) | .browser_download_url')
         echo "$binary_download_url"
         echo "binary_download_url=$binary_download_url" >> $GITHUB_OUTPUT
 
