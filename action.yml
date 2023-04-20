@@ -48,7 +48,12 @@ runs:
       id: download_url
       if: steps.binary_exists.outputs.exists != 'true'
       run: |
-        binary_download_url=$(curl -O -L -H "Authorization: Bearer ${{ inputs.token }}" 'https://api.github.com/repos/typst/typst/releases/latest' | jq '.assets[]? | select( .name | contains("${{ steps.determine_os.outputs.binary_type }}")) | .browser_download_url')
+        response=$( curl --request GET \
+          --url https://api.github.com/repos/typst/typst/releases/latest \
+          --header 'authorization: Bearer ${{ inputs.token }}')
+
+        echo "$response"
+        binary_download_url=$($response | jq '.assets[]? | select( .name | contains("${{ steps.determine_os.outputs.binary_type }}")) | .browser_download_url')
         echo "$binary_download_url"
         echo "binary_download_url=$binary_download_url" >> $GITHUB_OUTPUT
 
