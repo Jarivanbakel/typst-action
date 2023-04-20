@@ -6,7 +6,10 @@ inputs:
     required: true
   working_directory:
     description: 'The working directory where all the typst files are located'
-    required: false
+    required: false  
+  token:
+    description: 'Defines the token to use to execute the git API requests with, uses `env.GITHUB_TOKEN` by default'
+    default: ${{ github.token }}
 runs:
   using: "composite"
   steps:
@@ -45,7 +48,7 @@ runs:
       id: download_url
       if: steps.binary_exists.outputs.exists != 'true'
       run: |
-        binary_download_url=$(curl -O -L -H "Authorization: Bearer ${{ env.GITHUB_TOKEN }}" 'https://api.github.com/repos/typst/typst/releases/latest' | jq '.assets[]? | select( .name | contains("${{ steps.determine_os.outputs.binary_type }}")) | .browser_download_url')
+        binary_download_url=$(curl -O -L -H "Authorization: Bearer ${{ inputs.token }}" 'https://api.github.com/repos/typst/typst/releases/latest' | jq '.assets[]? | select( .name | contains("${{ steps.determine_os.outputs.binary_type }}")) | .browser_download_url')
         echo "$binary_download_url"
         echo "binary_download_url=$binary_download_url" >> $GITHUB_OUTPUT
 
