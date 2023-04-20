@@ -48,7 +48,7 @@ runs:
       id: download_url
       if: steps.binary_exists.outputs.exists != 'true'
       run: |
-        response=$( curl --request GET \
+        response=$(curl --request GET \
           --url https://api.github.com/repos/typst/typst/releases/latest \
           --header 'authorization: Bearer ${{ inputs.token }}')
 
