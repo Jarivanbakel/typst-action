@@ -18,15 +18,15 @@ jobs:
         
       - name: Compile basic Typst document 
         uses:  Jarivanbakel/typst-action@v1.0.1
-        secrets: 
-            GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        env: 
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
           input_files: test/doc.typ
 
       - name: Compile multiple Typst documents
         uses:  Jarivanbakel/typst-action@v1.0.1
-        secrets: 
-            GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        env: 
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
           input_files: |
             test/doc.typ 
@@ -35,8 +35,8 @@ jobs:
 
       - name: Compile basic Typst document 
         uses:  Jarivanbakel/typst-action@v1.0.1       
-        secrets: 
-            GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        env: 
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
           working_directory: test
           input_files: |
