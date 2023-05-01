@@ -20,14 +20,14 @@ runs:
         if [ "$RUNNER_OS" == 'Linux' ]; 
         then
              binary_type="x86_64-unknown-linux-gnu"
-             archive_extension=".tar.gz"
+             archive_extension=".tar.xz"
         elif [ "$RUNNER_OS" == 'Windows' ]; 
         then
              binary_type="x86_64-pc-windows-msvc"
              archive_extension=".zip"
         else 
              binary_type="x86_64-apple-darwin"
-             archive_extension=".tar.gz"
+             archive_extension=".tar.xz"
         fi
         
         echo "binary_type=$binary_type" >> $GITHUB_OUTPUT
