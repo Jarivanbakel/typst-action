@@ -19,14 +19,14 @@ runs:
       run: |
         if [ "$RUNNER_OS" == 'Linux' ]; 
         then
-             binary_type="unknown-linux-gnu"
+             binary_type="x86_64-unknown-linux-gnu"
              archive_extension=".tar.gz"
         elif [ "$RUNNER_OS" == 'Windows' ]; 
         then
-             binary_type="pc-windows-msvc"
+             binary_type="x86_64-pc-windows-msvc"
              archive_extension=".zip"
         else 
-             binary_type="apple-darwin"
+             binary_type="x86_64-apple-darwin"
              archive_extension=".tar.gz"
         fi
         
@@ -37,7 +37,7 @@ runs:
       shell: bash
       id: binary_exists
       run: |
-        if [ -d "typst-x86_64-${{ steps.determine_os.outputs.binary_type }}" ]; then
+        if [ -d "typst-${{ steps.determine_os.outputs.binary_type }}" ]; then
             echo "exists=true" >> $GITHUB_OUTPUT
         else
             echo "exists=false" >> $GITHUB_OUTPUT
@@ -70,9 +70,9 @@ runs:
 
         if [ "$RUNNER_OS" == 'Windows' ]; 
         then
-            7z x "typst-x86_64-${{ steps.determine_os.outputs.binary_type }}${{ steps.determine_os.outputs.archive_extension }}"
+            7z x "typst-${{ steps.determine_os.outputs.binary_type }}${{ steps.determine_os.outputs.archive_extension }}"
         else
-            tar zxvf "typst-x86_64-${{ steps.determine_os.outputs.binary_type }}${{ steps.determine_os.outputs.archive_extension }}"
+            tar zxvf "typst-${{ steps.determine_os.outputs.binary_type }}${{ steps.determine_os.outputs.archive_extension }}"
         fi
         
         echo "$PWD"
