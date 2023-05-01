@@ -65,13 +65,13 @@ runs:
       shell: bash
       if: steps.binary_exists.outputs.exists != 'true'
       run: |
-        echo Running on $RUNNER_OS extracting ${{ steps.determine_os.outputs.binary_type }}${{ steps.determine_os.outputs.archive_extension }}
+        echo Running on $RUNNER_OS extracting typst-${{ steps.determine_os.outputs.binary_type }}${{ steps.determine_os.outputs.archive_extension }}
 
         if [ "$RUNNER_OS" == 'Windows' ]; 
         then
             7z x "typst-${{ steps.determine_os.outputs.binary_type }}${{ steps.determine_os.outputs.archive_extension }}"
         else
-            tar zxvf "typst-${{ steps.determine_os.outputs.binary_type }}${{ steps.determine_os.outputs.archive_extension }}"
+            tar xf "typst-${{ steps.determine_os.outputs.binary_type }}${{ steps.determine_os.outputs.archive_extension }}"
         fi
         
         echo "$PWD"
