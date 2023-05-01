@@ -17,17 +17,16 @@ runs:
       shell: bash
       id: determine_os
       run: |
+        archive_extension=".tar.xz"
         if [ "$RUNNER_OS" == 'Linux' ]; 
         then
-             binary_type="x86_64-unknown-linux-gnu"
-             archive_extension=".tar.xz"
+             binary_type="x86_64-unknown-linux-musl"
         elif [ "$RUNNER_OS" == 'Windows' ]; 
         then
              binary_type="x86_64-pc-windows-msvc"
              archive_extension=".zip"
         else 
              binary_type="x86_64-apple-darwin"
-             archive_extension=".tar.xz"
         fi
         
         echo "binary_type=$binary_type" >> $GITHUB_OUTPUT
@@ -66,7 +65,7 @@ runs:
       shell: bash
       if: steps.binary_exists.outputs.exists != 'true'
       run: |
-        echo Running on $RUNNER_OS extracting $binary_type$archive_extension
+        echo Running on $RUNNER_OS extracting ${{ steps.determine_os.outputs.binary_type }}${{ steps.determine_os.outputs.archive_extension }}
 
         if [ "$RUNNER_OS" == 'Windows' ]; 
         then
@@ -76,8 +75,8 @@ runs:
         fi
         
         echo "$PWD"
-        echo "$PWD/typst-x86_64-${{ steps.determine_os.outputs.binary_type }}"
-        echo "$PWD/typst-x86_64-${{ steps.determine_os.outputs.binary_type }}" >> $GITHUB_PATH
+        echo "$PWD/typst-${{ steps.determine_os.outputs.binary_type }}"
+        echo "$PWD/typst-${{ steps.determine_os.outputs.binary_type }}" >> $GITHUB_PATH
         
     - name: Compile Typst documents
       shell: bash
